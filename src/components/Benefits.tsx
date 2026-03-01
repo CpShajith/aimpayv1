@@ -2,6 +2,7 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Check } from 'lucide-react';
 import { motion, useScroll, useTransform, type Variants } from 'motion/react';
 import { useRef } from 'react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const benefits = [
   'No hidden fees or surprise charges',
@@ -37,6 +38,7 @@ const item: Variants = {
 
 export function Benefits() {
   const ref = useRef(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
@@ -48,10 +50,12 @@ export function Benefits() {
   return (
     <section id="benefits" ref={ref} className="scroll-mt-24 py-16 sm:py-24 lg:py-32 bg-[#2d0b00] relative overflow-hidden">
       {/* Background decoration */}
-      <motion.div
-        className="absolute top-1/2 left-0 w-96 h-96 bg-orange-400/15 rounded-full blur-[120px]"
-        style={{ x }}
-      />
+      {!isMobile && (
+        <motion.div
+          className="absolute top-1/2 left-0 w-96 h-96 bg-orange-400/15 rounded-full blur-[120px]"
+          style={{ x }}
+        />
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -63,36 +67,40 @@ export function Benefits() {
             transition={{ duration: 0.8 }}
           >
             {/* Floating animated orbs around image */}
-            <motion.div
-              className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full blur-2xl opacity-40"
-              animate={{
-                y: [0, -20, 0],
-                scale: [1, 1.2, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <motion.div
-              className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full blur-2xl opacity-40"
-              animate={{
-                y: [0, 20, 0],
-                scale: [1, 1.3, 1],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 0.5
-              }}
-            />
+            {!isMobile && (
+              <>
+                <motion.div
+                  className="absolute -top-10 -left-10 w-32 h-32 bg-gradient-to-br from-orange-500 to-orange-600 rounded-full blur-2xl opacity-40"
+                  animate={{
+                    y: [0, -20, 0],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+                <motion.div
+                  className="absolute -bottom-10 -right-10 w-40 h-40 bg-gradient-to-br from-orange-600 to-orange-700 rounded-full blur-2xl opacity-40"
+                  animate={{
+                    y: [0, 20, 0],
+                    scale: [1, 1.3, 1],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: 0.5
+                  }}
+                />
+              </>
+            )}
 
             <motion.div
               className="relative group"
-              style={{ scale: imageScale }}
-              whileHover={{
+              style={isMobile ? {} : { scale: imageScale }}
+              whileHover={isMobile ? {} : {
                 scale: 1.05,
                 rotateY: 10,
                 rotateX: -5,

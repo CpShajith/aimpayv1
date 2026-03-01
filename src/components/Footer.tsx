@@ -38,7 +38,7 @@ export function Footer() {
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-orange-500/30">
                 <span className="text-white text-2xl">A</span>
               </div>
-              <span className="text-3xl text-white">AimPay</span>
+              <span className="text-3xl text-white">AIM.pay</span>
             </motion.div>
             <p className="text-orange-200/60 mb-6 leading-relaxed max-w-sm">
               Making cross-border payments simple, fast, and affordable for everyone. Send money to 180+ countries with confidence.

@@ -42,7 +42,7 @@ export function Navigation({
               <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-700 rounded-xl flex items-center justify-center shadow-lg shadow-orange-600/40">
                 <span className="text-white text-xl font-bold">A</span>
               </div>
-              <span className="text-2xl text-white font-semibold">AimPay</span>
+              <span className="text-2xl text-white font-semibold">AIM.pay</span>
             </motion.div>
           </Link>
 

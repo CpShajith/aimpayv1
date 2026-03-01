@@ -1,6 +1,7 @@
 import { DollarSign, Clock, Shield, Globe, TrendingDown, Lock } from 'lucide-react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef } from 'react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const features = [
   {
@@ -60,13 +61,14 @@ const item = {
     rotateX: 0,
     transition: {
       duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1]
+      ease: [0.25, 0.1, 0.25, 1] as const
     }
   }
 };
 
 export function Features() {
   const ref = useRef(null);
+  const isMobile = useMediaQuery('(max-width: 768px)');
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
@@ -77,10 +79,12 @@ export function Features() {
   return (
     <section id="features" ref={ref} className="py-16 sm:py-24 lg:py-32 relative" style={{ background: 'transparent' }}>
       {/* Background decoration */}
-      <motion.div
-        className="absolute top-0 left-1/4 w-96 h-96 bg-orange-400/15 rounded-full blur-[120px]"
-        style={{ y }}
-      />
+      {!isMobile && (
+        <motion.div
+          className="absolute top-0 left-1/4 w-96 h-96 bg-orange-400/15 rounded-full blur-[120px]"
+          style={{ y }}
+        />
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -121,11 +125,11 @@ export function Features() {
             >
               <motion.div
                 className="relative p-6 sm:p-8 bg-[#1A0700] rounded-3xl border border-[#2d0b00] hover:border-orange-500/40 transition-all duration-300 h-full overflow-hidden shadow-[0_-4px_25px_rgba(0,0,0,0.5)] group-hover:shadow-[0_10px_40px_rgba(247,59,32,0.15)]"
-                whileHover={{
+                whileHover={isMobile ? {} : {
                   y: -10,
                   scale: 1.02,
                 }}
-                style={{ transformStyle: "preserve-3d" }}
+                style={isMobile ? {} : { transformStyle: "preserve-3d" }}
               >
                 {/* Gradient overlay on hover */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300 z-0`} />

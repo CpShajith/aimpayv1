@@ -122,12 +122,12 @@ export function Hero({ onGetStarted }: { onGetStarted?: () => void }) {
       {/* --- Hero Foreground Content --- */}
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10"
-        style={{ opacity }}
+        style={isMobile ? {} : { opacity }}
       >
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          <motion.div style={{ y }}>
+          <motion.div style={isMobile ? {} : { y }}>
             <motion.div
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500/20 border border-orange-500/30 text-orange-300 rounded-full mb-8 backdrop-blur-md"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-500/20 border border-orange-500/30 text-orange-300 rounded-full mb-8 md:backdrop-blur-md"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -184,7 +184,7 @@ export function Hero({ onGetStarted }: { onGetStarted?: () => void }) {
               </motion.button>
               <motion.a
                 href="#how-it-works"
-                className="px-8 py-4 border border-white/30 text-white backdrop-blur-md bg-white/5 rounded-xl hover:bg-white/10 transition-all relative group overflow-hidden block text-center"
+                className="px-8 py-4 border border-white/30 text-white md:backdrop-blur-md bg-white/5 rounded-xl hover:bg-white/10 transition-all relative group overflow-hidden block text-center"
                 whileHover={{ scale: 1.05, borderColor: "rgba(255, 255, 255, 0.5)" }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -209,7 +209,7 @@ export function Hero({ onGetStarted }: { onGetStarted?: () => void }) {
                   href={item.link}
                   className="flex items-center gap-2 group cursor-pointer hover:scale-110 transition-transform duration-300"
                 >
-                  <div className="p-2 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10 group-hover:border-orange-500/50 transition-colors">
+                  <div className="p-2 bg-black/40 md:backdrop-blur-sm rounded-lg border border-white/10 group-hover:border-orange-500/50 transition-colors">
                     <item.icon className="w-4 h-4 text-orange-400 group-hover:text-amber-400" />
                   </div>
                   <span className="text-gray-300 font-light text-sm group-hover:text-white transition-colors">{item.text}</span>
@@ -245,18 +245,18 @@ export function Hero({ onGetStarted }: { onGetStarted?: () => void }) {
               transition={{ duration: 0.3 }}
             >
               {loading ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-xl rounded-full border border-white/10 shadow-2xl">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/40 md:backdrop-blur-xl rounded-full border border-white/10 shadow-2xl">
                   <Loader2 className="w-10 h-10 animate-spin text-orange-400 mb-4" />
                   <p className="text-gray-300 text-sm">Loading Live Rates...</p>
                 </div>
               ) : error || !rates ? (
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-xl rounded-full border border-red-500/30 shadow-2xl">
+                <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 md:backdrop-blur-xl rounded-full border border-red-500/30 shadow-2xl">
                   <p className="text-red-400 text-sm text-center px-6 font-medium">
                     {error || 'Failed to load live rates'}
                   </p>
                 </div>
               ) : (
-                <div className="relative w-full h-full rounded-full border border-white/10 shadow-2xl overflow-hidden bg-black/30 backdrop-blur-md">
+                <div className="relative w-full h-full rounded-full border border-white/10 shadow-2xl overflow-hidden bg-black/30 md:backdrop-blur-md">
                   {!isMobile && <CurrencyGlobe rates={rates} />}
                 </div>
               )}

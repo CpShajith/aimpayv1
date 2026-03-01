@@ -103,7 +103,7 @@ export function HowItWorks() {
           {steps.map((step, index) => (
             <motion.div key={index} className="relative" variants={item}>
               <motion.div
-                className="relative bg-[#200a00]/80 backdrop-blur-sm p-6 sm:p-10 rounded-3xl border-2 border-orange-800/40 hover:border-orange-500/60 transition-all duration-500 h-full overflow-hidden group shadow-lg shadow-orange-950/50"
+                className="relative bg-[#200a00]/80 md:backdrop-blur-sm p-6 sm:p-10 rounded-3xl border-2 border-orange-800/40 hover:border-orange-500/60 transition-all duration-500 h-full overflow-hidden group shadow-lg shadow-orange-950/50"
                 whileHover={isMobile ? { scale: 1.02, y: -5 } : {
                   y: -20,
                   scale: 1.05,

@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useRef, useState } from 'react';
 import { Plus, Repeat, Send, ArrowRight, CheckCircle2, DollarSign } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const steps = [
   {
@@ -34,6 +35,7 @@ export function AddExchangeSend() {
   const containerRef = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
   const navigate = useNavigate();
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -47,36 +49,40 @@ export function AddExchangeSend() {
       {/* Animated background */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-br from-orange-950/20 via-transparent to-orange-950/20"
-        style={{ y: backgroundY }}
+        style={isMobile ? {} : { y: backgroundY }}
       />
 
       {/* Floating orbs */}
-      <motion.div
-        className="absolute top-20 left-10 w-64 h-64 bg-orange-400/20 rounded-full blur-[100px]"
-        animate={{
-          x: [0, 100, 0],
-          y: [0, -50, 0],
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute bottom-20 right-10 w-80 h-80 bg-orange-300/20 rounded-full blur-[100px]"
-        animate={{
-          x: [0, -100, 0],
-          y: [0, 50, 0],
-          scale: [1, 1.3, 1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
+      {!isMobile && (
+        <>
+          <motion.div
+            className="absolute top-20 left-10 w-64 h-64 bg-orange-400/20 rounded-full blur-[100px]"
+            animate={{
+              x: [0, 100, 0],
+              y: [0, -50, 0],
+              scale: [1, 1.2, 1],
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+          <motion.div
+            className="absolute bottom-20 right-10 w-80 h-80 bg-orange-300/20 rounded-full blur-[100px]"
+            animate={{
+              x: [0, -100, 0],
+              y: [0, 50, 0],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 10,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
@@ -185,7 +191,7 @@ export function AddExchangeSend() {
                 </ul>
 
                 {/* Animated pulse ring */}
-                {activeStep === index && (
+                {activeStep === index && !isMobile && (
                   <motion.div
                     className="absolute inset-0 border-2 border-orange-500 rounded-3xl"
                     initial={{ opacity: 0.5, scale: 1 }}
