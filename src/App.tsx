@@ -30,7 +30,7 @@ import { AnimatePresence } from 'motion/react';
 import './styles/globals.css';
 
 export default function App() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const gradientRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useMediaQuery('(max-width: 768px)');
@@ -39,7 +39,9 @@ export default function App() {
     if (isMobile) return;
 
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      if (gradientRef.current) {
+        gradientRef.current.style.background = `radial-gradient(circle 800px at ${e.clientX}px ${e.clientY}px, rgba(230, 81, 0, 0.15), transparent)`;
+      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -65,9 +67,10 @@ export default function App() {
     <div className="min-h-screen overflow-hidden" style={{ background: '#3D0F00' }}>
       {/* Animated gradient follow */}
       <div
+        ref={gradientRef}
         className="fixed inset-0 opacity-30 pointer-events-none z-0"
         style={{
-          background: `radial-gradient(circle 800px at ${mousePosition.x}px ${mousePosition.y}px, rgba(230, 81, 0, 0.15), transparent)`,
+          background: `radial-gradient(circle 800px at 0px 0px, rgba(230, 81, 0, 0.15), transparent)`,
         }}
       />
 

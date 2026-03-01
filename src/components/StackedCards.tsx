@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { useRef } from 'react';
 import { Shield, Zap, Globe, Lock, TrendingDown, Users } from 'lucide-react';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 
 const cards = [
   {
@@ -123,21 +124,24 @@ function Card({ card, index }: any) {
 }
 
 export function StackedCards() {
+  const isMobile = useMediaQuery('(max-width: 768px)');
   return (
     <section className="py-16 sm:py-24 lg:py-32 relative z-10" style={{ background: 'transparent' }}>
       {/* Background decoration */}
-      <motion.div
-        className="absolute top-1/4 right-0 w-96 h-96 bg-orange-400/15 rounded-full blur-[120px]"
-        animate={{
-          x: [0, -50, 0],
-          y: [0, 50, 0],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
+      {!isMobile && (
+        <motion.div
+          className="absolute top-1/4 right-0 w-96 h-96 bg-orange-400/15 rounded-full blur-[120px]"
+          animate={{
+            x: [0, -50, 0],
+            y: [0, 50, 0],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        />
+      )}
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
         <motion.div
