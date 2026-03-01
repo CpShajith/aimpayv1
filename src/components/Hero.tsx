@@ -29,11 +29,20 @@ export function Hero({ onGetStarted }: { onGetStarted?: () => void }) {
 
   // --- Background Video State ---
   const [active, setActive] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState<boolean>(true);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   const handleEnd = () => {
     setActive((prev) => (prev + 1) % currentVideos.length);
+    setProgress(0);
+  };
+
+  const handleTimeUpdate = (e: React.SyntheticEvent<HTMLVideoElement>) => {
+    const video = e.currentTarget;
+    if (video.duration) {
+      setProgress((video.currentTime / video.duration) * 100);
+    }
   };
 
   const getPosition = (index: number): Position => {
@@ -45,6 +54,7 @@ export function Hero({ onGetStarted }: { onGetStarted?: () => void }) {
   };
 
   useEffect(() => {
+    setProgress(0);
     const currentVideo = videoRefs.current[active];
     if (currentVideo && isPlaying) {
       currentVideo.currentTime = 0;
@@ -97,6 +107,7 @@ export function Hero({ onGetStarted }: { onGetStarted?: () => void }) {
                 playsInline
                 preload="auto"
                 onEnded={isActive ? handleEnd : undefined}
+                onTimeUpdate={isActive ? handleTimeUpdate : undefined}
                 className="w-full h-full object-cover"
               />
             </motion.div>
